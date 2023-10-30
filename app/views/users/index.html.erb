@@ -1,5 +1,19 @@
 <h1>Users#index</h1>
 
-<p><%= link_to '新規登録してね～', users_new_path %></p>
+<h2>ユーザー一覧</h2>
 
-<p><%= link_to '削除はこっちだよ～', users_new_path %></p>
+<table>
+  <tr>
+    <th>ユーザー名</th>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td>
+          <%= user.uid %>
+          <%= link_to '削除', "/users/#{user.id}", data: { turbo_method: :delete } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to '新規登録してね～', new_user_path %></p>
