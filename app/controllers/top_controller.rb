@@ -1,6 +1,7 @@
 class TopController < ApplicationController
     def main
-        render 'login_form'
+        @tweets = Tweet.all
+        render 'main'
     end
     
     def login
@@ -11,14 +12,15 @@ class TopController < ApplicationController
             
             if  BCrypt::Password.new(user.pass) == params[:pass]
                 session[:login_uid]=params[:uid]
-                redirect_to tweets_index_path
+                session[:user_id] = user.id
+                redirect_to '/'
             else
                 flash[:alert] = '※ユーザIDかパスワードが間違ってるヨ！'
-                redirect_to '/'
+                redirect_to top_login_form_path
             end
         else
             flash[:alert] = '※ユーザIDかパスワードが間違ってるヨ！'
-            redirect_to '/'
+            redirect_to top_login_form_path
         end
     end
     

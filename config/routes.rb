@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  #root 'users#index'
-  #resources :users
+  get 'users/index'
+  resources :users
   
   get 'tweets/index'
   resources :tweets
   
-  root 'top#login_form'
+  root 'top#main'
+  get 'top/login_form'
   post 'top/login'
   get 'top/logout'
+  
+  resources :likes
 end

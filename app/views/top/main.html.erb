@@ -1,0 +1,47 @@
+<h2>ツイート一覧</h2>
+
+<table>
+  <tr>
+    <th>ツイート</th>
+    <th>投稿ユーザー</th>
+  </tr>
+  <% @tweets.each do |tweet| %>
+    <tr>
+      <td>
+          <%= tweet.message %>
+      </td>
+      <td>
+          <% user = User.find(tweet.user_id) %>
+          <%= user.uid %>
+      </td>
+      <td>
+          <% if session[:login_uid].present? %>
+            <% user = User.find_by(uid: session[:login_uid]) %>
+            
+            <% if user.like_tweets.include?(tweet) %>
+              <%= link_to 'いいね削除', like_path(tweet), data: { turbo_method: :delete } %>
+              
+            <% else %>
+              <%= link_to 'いいね', likes_path(tweet_id: tweet.id), data: { turbo_method: :post } %>
+            <% end %>
+            
+          <% end %>
+          <%= link_to '削除', "/tweets/#{tweet.id}", data: { turbo_method: :delete } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to 'ユーザの新規登録してね～', new_user_path %></p>
+
+<% if session[:login_uid].present? %>
+    <!-- ログイン中の場合 -->
+    
+    <p><%= link_to '新規ツイートしてね～', new_tweet_path %></p>
+
+    <p><%= link_to 'ログアウトはここだよ～', top_logout_path %></p>
+
+<% else %>
+    <!-- ログインしていない場合 -->
+    <p><%= link_to 'ログイン', top_login_form_path %></p>
+<% end %>

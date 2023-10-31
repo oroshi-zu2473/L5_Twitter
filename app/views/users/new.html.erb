@@ -5,3 +5,20 @@
   <%= password_field_tag :pass %>
   <%= submit_tag '新規登録' %>
 <% end %>
+
+<h2>ユーザー一覧</h2>
+
+<table>
+  <tr>
+    <th>ユーザー名</th>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td>
+        <%= user.uid %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to '戻る', :back %></p>

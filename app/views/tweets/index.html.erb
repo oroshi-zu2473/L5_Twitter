@@ -8,7 +8,7 @@
     <tr>
       <td>
           <%= tweet.message %>
-          <%= tweet.tdate %>
+          <%= tweet.user_id %>
           <%= link_to '削除', "/tweets/#{tweet.id}", data: { turbo_method: :delete } %>
       </td>
     </tr>
