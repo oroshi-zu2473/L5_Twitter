@@ -30,14 +30,16 @@
       </td>
     </tr>
   <% end %>
-</table>
-
-<p><%= link_to 'ユーザの新規登録してね～', new_user_path %></p>
+</table></br>
 
 <% if session[:login_uid].present? %>
     <!-- ログイン中の場合 -->
     
-    <p><%= link_to '新規ツイートしてね～', new_tweet_path %></p>
+    <%= form_tag '/tweets', ({ action: :create }) do %>
+      <%= label_tag :message, 'メッセージ' %>
+      <%= text_field_tag :message %>
+      <%= submit_tag 'ツイート' %>
+    <% end %>
 
     <p><%= link_to 'ログアウトはここだよ～', top_logout_path %></p>
 
@@ -45,3 +47,5 @@
     <!-- ログインしていない場合 -->
     <p><%= link_to 'ログイン', top_login_form_path %></p>
 <% end %>
+
+<p><%= link_to 'ユーザの新規登録してね～', new_user_path %></p>
