@@ -12,8 +12,8 @@ class UsersController < ApplicationController
       flash[:alert] = '※そのユーザIDは使えんでぇ～'
       redirect_to new_user_path
     else
-      hashed_password = BCrypt::Password.create(params[:pass])
-      user = User.new(uid: params[:uid], pass: hashed_password)
+      #hashed_password = BCrypt::Password.create(params[:pass])
+      user = User.new(uid: params[:uid], password: params[:password], password_confirmation: params[:password_confirmation])
       user.save
       redirect_to users_path
     end
